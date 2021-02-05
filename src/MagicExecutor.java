@@ -1,5 +1,4 @@
 import org.bukkit.*;
-import org.bukkit.block.Skull;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -10,12 +9,40 @@ import org.bukkit.util.Vector;
 import java.util.*;
 public class MagicExecutor {
     public static HashMap<String,MagicExecutor> MagicList=new HashMap<>();
+    private final int cold_time;
     public static void register_magic(String name,MagicExecutor m){
         MagicList.put(name,m);
     }
+    public MagicExecutor(int c){
+        cold_time=c;
+    }
+    public boolean runMagic(LivingEntity Caster){return true;}
+    public void run(LivingEntity Caster){
+        if(Player.class.isAssignableFrom(Caster.getClass())) {
+            PlayerMagicList PML = WizardStaffMain.player_magics.get((Player) Caster);
+            if (PML.cool_time == 0) {
+                boolean suc = runMagic(Caster);
+                if (suc) {
+                    PML.cool_time = cold_time;
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (PML.cool_time > 0) {
+                                PML.cool_time--;
+                            } else {
+                                this.cancel();
+                            }
+                        }
+                    }.runTaskTimer(WizardStaffMain.only, 1, 1);
+                }
+            }
+        }else{
+            runMagic(Caster);
+        }
+    }
     public static void register_default(){
         //火球
-        MagicExecutor FIRE_BALL=new MagicExecutor(){
+        MagicExecutor FIRE_BALL=new MagicExecutor(20){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w=Caster.getWorld();
@@ -29,7 +56,7 @@ public class MagicExecutor {
         };
         register_magic("FIRE_BALL",FIRE_BALL);
         //火焰箭
-        MagicExecutor FLAME_ARROW=new MagicExecutor(){
+        MagicExecutor FLAME_ARROW=new MagicExecutor(0){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
@@ -43,7 +70,7 @@ public class MagicExecutor {
         };
         register_magic("FLAME_ARROW",FLAME_ARROW);
         //雷鸣波
-        MagicExecutor THUNDER_WAVE=new MagicExecutor(){
+        MagicExecutor THUNDER_WAVE=new MagicExecutor(60){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 Location loc=Caster.getLocation();
@@ -64,7 +91,7 @@ public class MagicExecutor {
         };
         register_magic("THUNDER_WAVE",THUNDER_WAVE);
         //粉碎音波
-        MagicExecutor SHATTER=new MagicExecutor(){
+        MagicExecutor SHATTER=new MagicExecutor(100){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w=Caster.getWorld();
@@ -88,7 +115,7 @@ public class MagicExecutor {
         };
         register_magic("SHATTER",SHATTER);
         //魔法飞弹
-        MagicExecutor MAGIC_MISSILE=new MagicExecutor(){
+        MagicExecutor MAGIC_MISSILE=new MagicExecutor(60){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
@@ -138,7 +165,7 @@ public class MagicExecutor {
         };
         register_magic("MAGIC_MISSILE",MAGIC_MISSILE);
         //冰铠
-        MagicExecutor FROST_ARMOR=new MagicExecutor(){
+        MagicExecutor FROST_ARMOR=new MagicExecutor(1200){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 PlayerDamageListener.watchlist.add(Caster);
@@ -150,7 +177,7 @@ public class MagicExecutor {
         };
         register_magic("FROST_ARMOR",FROST_ARMOR);
         //召雷术
-        MagicExecutor THUNDER_CALLING=new MagicExecutor(){
+        MagicExecutor THUNDER_CALLING=new MagicExecutor(100){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 try {
@@ -164,7 +191,7 @@ public class MagicExecutor {
         };
         register_magic("THUNDER_CALLING",THUNDER_CALLING);
         //怪物定身术
-        MagicExecutor HOLD_MONSTER=new MagicExecutor(){
+        MagicExecutor HOLD_MONSTER=new MagicExecutor(120){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
@@ -196,11 +223,11 @@ public class MagicExecutor {
         };
         register_magic("HOLD_MONSTER",HOLD_MONSTER);
         //传送术
-        MagicExecutor TELEPORT=new MagicExecutor(){
+        /*MagicExecutor TELEPORT=new MagicExecutor(0){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 if(Player.class.isAssignableFrom(Caster.getClass())) {
-                    Inventory inven=Bukkit.createInventory((Player)Caster,9*6,"teleport_target");
+                    Inventory inventory=Bukkit.createInventory((Player)Caster,9*6,"teleport_target");
                     List<Entity> l=Caster.getWorld().getEntities();
                     List<LivingEntity> choice=new ArrayList<>();
                     for(Entity e:l){
@@ -217,39 +244,13 @@ public class MagicExecutor {
                         im.setOwningPlayer((OfflinePlayer)e);
                         is=new ItemStack(Material.SKULL_BANNER_PATTERN);
                         is.setItemMeta(im);
-                        inven.setItem(i++,is);
+                        inventory.setItem(i++,is);
                     }
+
                     return true;
                 }else return false;
             }
         };
-        register_magic("TELEPORT",TELEPORT);
-    }
-    public boolean runMagic(LivingEntity Caster){return true;}
-    public void run(LivingEntity Caster,int cold_time){
-        if(Player.class.isAssignableFrom(Caster.getClass())) {
-            PlayerMagicList PML = WizardStaffMain.player_magics.get((Player) Caster);
-            if (PML.cooldown == 0) {
-                boolean suc = runMagic(Caster);
-                if (suc) {
-                    PML.cooldown = cold_time;
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            if (PML.cooldown > 0) {
-                                PML.cooldown--;
-                            } else {
-                                this.cancel();
-                            }
-                        }
-                    }.runTaskTimer(WizardStaffMain.only, 1, 1);
-                }
-            }
-        }else{
-            Bukkit.getLogger().info("错误的run函数对象：非玩家实体调用了含有冷却时长的执行器run函数");
-        }
-    }
-    public void run(LivingEntity Caster){
-        runMagic(Caster);
+        register_magic("TELEPORT",TELEPORT);*/
     }
 }

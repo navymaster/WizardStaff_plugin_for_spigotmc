@@ -12,7 +12,7 @@ public class RightClickListener implements Listener {
                 List<String> Lore = e.getItem().getItemMeta().getLore();
                 for(String s: MagicExecutor.MagicList.keySet()){
                     if (Lore.contains(s)) {
-                        MagicExecutor.MagicList.get(s).run(e.getPlayer(), 0);
+                        MagicExecutor.MagicList.get(s).run(e.getPlayer());
                     }
                 }
             }catch(NullPointerException n){

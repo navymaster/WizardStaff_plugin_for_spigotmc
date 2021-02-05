@@ -17,8 +17,10 @@ public class PlayerEnterListener implements Listener {
                     ItemStack is=new ItemStack(Material.STICK);
                     ItemMeta im=is.getItemMeta();
                     List<String> l=new ArrayList<>();
-                    l.add(s);im.setLore(l);
+                    l.add(s);
+                    im.setLore(l);
                     is.setItemMeta(im);
+                    e.getPlayer().getInventory().addItem(is);
                 }
             }
             if(WizardStaffMain.FC.get(e.getPlayer().getDisplayName())!=null){
