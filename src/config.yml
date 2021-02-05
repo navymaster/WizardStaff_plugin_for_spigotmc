@@ -1,0 +1,28 @@
+#debug模式，这将会将一些随机事件改为必定发生，这样做是为了方便开发者能固定刷出自己写的内容以检查bug，因此，请永远不要在云端开启此项
+Debug_Mode: false
+#这是默认的玩家手册数据，如果你需要更改它，你可以直接通过setphb指令来做，或者，你非要在这里改，那就祝你好运。
+phbdata:
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: WRITTEN_BOOK
+  meta:
+    ==: ItemMeta
+    meta-type: BOOK_SIGNED
+    title: 本服插件的简单介绍
+    author: 旅行者navy_master
+    pages:
+      - '{"extra":[{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"3"},"text":"皮革\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"4"},"text":"链甲\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"5"},"text":"有毒的棒棒\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"6"},"text":"有毒的大棒\n"}],"text":"新增合成表(预览完善中)\n"}'
+      - '{"extra":[{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"7"},"text":"MAGIC_MISSILE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"8"},"text":"FIRE_BALL\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"9"},"text":"THUNDER_WAVE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"10"},"text":"SHATTER\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"11"},"text":"FLAME_ARROW\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"12"},"text":"FROST_ARMOR\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"13"},"text":"THUNDER_CALLING\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"14"},"text":"HOLD_MONSTER\n"}],"text":"附魔时，有10%概率获得一项主动技能\n拿起物品，右键即可释放，以下为主动技能词条：\n"}'
+      - '{"text":"腐肉置入熔炉中烧制,即可获得皮革"}'
+      - '{"text":"链甲使用锁链（2铁粒+1铁锭）合成，配方你懂得"}'
+      - '{"extra":[{"text":"有毒的棒棒"}],"text":"使用9个毒马铃薯\n即可合成"}'
+      - '{"extra":[{"text":"有毒的大棒"}],"text":"使用9个有毒的棒棒\n即可合成"}'
+      - '{"text":"MAGIC_MISSILE\n魔法飞弹\n瞄准目标头部（或者高一点）即可发射三枚跟踪飞弹,冷却3s"}'
+      - '{"text":"FIRE_BALL\n火球术\n召唤恶魂火球,冷却1s"}'
+      - '{"text":"THUNDER_WAVE\n雷鸣波\n对周围所有其他生物造成伤害，冷却3s"}'
+      - '{"text":"SHATTER\n粉碎音波\n对你看向的位置周围所有生物造成伤害,冷却5s"}'
+      - '{"text":"FLAME_ARROW\n火焰箭\n对你看向的方向乱箭，无冷却"}'
+      - '{"text":"FROST_ARMOR\n凝霜之铠\n获取临时生命，在临时生命消耗完之前，被攻击造成反甲，冷却一分钟"}'
+      - '{"text":"THUNDER_CALLING\n召雷术\n对你看向的位置召唤闪电,冷却5s"}'
+      - '{"text":"HOLD_MONSTER\n怪物定身术\n定住你看向的非玩家生物3s，需要瞄准目标头部（或者高一点）,冷却6s"}'
+    resolved: true

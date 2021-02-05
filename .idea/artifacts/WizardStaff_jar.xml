@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WizardStaff:jar">
+    <output-path>E:/mc_server/plugins</output-path>
+    <root id="archive" name="WizardStaff.jar">
+      <element id="module-output" name="WizardStaff" />
+    </root>
+  </artifact>
+</component>
