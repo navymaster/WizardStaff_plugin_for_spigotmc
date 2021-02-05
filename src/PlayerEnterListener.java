@@ -2,6 +2,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,5 +33,9 @@ public class PlayerEnterListener implements Listener {
                 WizardStaffMain.FC.set(e.getPlayer().getDisplayName(),PML);
             }
         }
+    }
+    @EventHandler
+    public void handle_leave(PlayerQuitEvent e){
+        WizardStaffMain.player_magics.get(e.getPlayer()).cool_time=0;
     }
 }
