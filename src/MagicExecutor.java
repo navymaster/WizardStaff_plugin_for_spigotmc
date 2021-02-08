@@ -121,8 +121,17 @@ public class MagicExecutor {
                 World w = Caster.getWorld();
                 Location loc = Caster.getLocation();
                 try{
-                    Entity tar= Objects.requireNonNull(w.rayTraceEntities(loc, loc.getDirection(), 72)).getHitEntity();
-                    if(tar!=Caster&&LivingEntity.class.isAssignableFrom(tar.getClass())) {
+                    Entity tar= Objects.requireNonNull(w.rayTraceEntities(Caster.getEyeLocation(), loc.getDirection(), 72,0,x->x!=Caster)).getHitEntity();
+                    if(WizardStaffMain.debug_mode){
+                        Bukkit.getLogger().info(loc.toString());
+                        Bukkit.getLogger().info(Caster.getEyeLocation().toString());
+                        Bukkit.getLogger().info(loc.clone().add(0,1,0).toString());
+                        Bukkit.getLogger().info(Objects.requireNonNull(w.rayTraceEntities(loc, loc.getDirection(), 72)).getHitEntity().getName());
+                        Bukkit.getLogger().info(Objects.requireNonNull(w.rayTraceEntities(loc.clone().add(0,1,0), loc.getDirection(), 72)).getHitEntity().getName());
+                        Bukkit.getLogger().info(Objects.requireNonNull(w.rayTraceEntities(Caster.getEyeLocation(), loc.getDirection(), 72)).getHitEntity().getName());
+                        Bukkit.getLogger().info(tar.getName());
+                    }
+                     if(tar!=Caster&&LivingEntity.class.isAssignableFrom(tar.getClass())) {
                         loc.add(1, 2, 0);
                         FollowTask FT;
                         Snowball a;
@@ -197,7 +206,7 @@ public class MagicExecutor {
                 World w = Caster.getWorld();
                 Location loc = Caster.getLocation();
                 try{
-                    Entity tar= Objects.requireNonNull(w.rayTraceEntities(loc, loc.getDirection(), 72)).getHitEntity();
+                    Entity tar= Objects.requireNonNull(w.rayTraceEntities(Caster.getEyeLocation(), loc.getDirection(), 72,0,x->x!=Caster)).getHitEntity();
                     if(tar!=Caster&&LivingEntity.class.isAssignableFrom(tar.getClass())) {
                         ((LivingEntity)tar).setAI(false);
                         new BukkitRunnable(){
