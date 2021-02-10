@@ -2,6 +2,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -247,13 +248,14 @@ public class MagicExecutor {
         };
         register_magic("HOLD_MONSTER",HOLD_MONSTER);
         //传送术
-        /*MagicExecutor TELEPORT=new MagicExecutor(0){
+        MagicExecutor TELEPORT=new MagicExecutor(0){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 if(Player.class.isAssignableFrom(Caster.getClass())) {
                     Inventory inventory=Bukkit.createInventory((Player)Caster,9*6,"teleport_target");
                     List<Entity> l=Caster.getWorld().getEntities();
-                    List<LivingEntity> choice=new ArrayList<>();
+                    List<LivingEntity> choice;
+                    choice=new ArrayList<>();
                     for(Entity e:l){
                         if(LivingEntity.class.isAssignableFrom(e.getClass())){
                             choice.add((LivingEntity) e);
@@ -264,17 +266,34 @@ public class MagicExecutor {
                     SkullMeta im;
                     for(LivingEntity e:choice){
                         if(i>=45)break;
-                        im=(SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_BANNER_PATTERN);
-                        im.setOwningPlayer((OfflinePlayer)e);
-                        is=new ItemStack(Material.SKULL_BANNER_PATTERN);
+                        im=(SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.PLAYER_HEAD);
+                        if(Player.class.isAssignableFrom(e.getClass()))
+                            im.setOwningPlayer((Player)e);
+                        else
+                            im.setOwningPlayer(org.bukkit.Bukkit.getOfflinePlayer("MHF_"+e.getName()));
+                        im.setDisplayName(e.getName());
+                        is=new ItemStack(Material.PLAYER_HEAD);
                         is.setItemMeta(im);
                         inventory.setItem(i++,is);
                     }
-
+                    if(i==45){
+                    is=new ItemStack(Material.GRASS_BLOCK);
+                    ItemMeta imx=is.getItemMeta();
+                    imx.setDisplayName("下一页");
+                    is.setItemMeta(imx);
+                    inventory.setItem(53,is);
+                    }
+                    is=new ItemStack(Material.STONE);
+                    ItemMeta imx=is.getItemMeta();
+                    imx.setDisplayName("个数表示页码");
+                    is.setItemMeta(imx);
+                    inventory.setItem(49,is);
+                    ((Player) Caster).openInventory(inventory);
+                    WizardStaffListener.tp_choice=choice;
                     return true;
                 }else return false;
             }
         };
-        register_magic("TELEPORT",TELEPORT);*/
+        register_magic("TELEPORT",TELEPORT);
     }
 }

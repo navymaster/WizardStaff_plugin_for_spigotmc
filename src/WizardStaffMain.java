@@ -19,22 +19,15 @@ public class WizardStaffMain extends JavaPlugin {
         only=this;
         MagicExecutor.register_default();
         ConfigurationSerialization.registerClass(PlayerMagicList.class);
-        MagicLearnCommand MLC=new MagicLearnCommand();
-        Objects.requireNonNull(Bukkit.getPluginCommand("learnmagic")).setExecutor(MLC);
-        Objects.requireNonNull(Bukkit.getPluginCommand("playerhandbook")).setExecutor(new PlayerHandBook());
-        Objects.requireNonNull(Bukkit.getPluginCommand("setplayerhandbook")).setExecutor(new PHBSetter());
-        Objects.requireNonNull(Bukkit.getPluginCommand("learnmagic")).setTabCompleter(MLC);
-        Bukkit.getPluginManager().registerEvents(new PlayerEnterListener(),this);
-        Bukkit.getPluginManager().registerEvents(new ShowMagic(),this);
-        Bukkit.getPluginManager().registerEvents(new StorageMagicListener(),this);
-        Bukkit.getPluginManager().registerEvents(new RightClickListener(),this);
-        Bukkit.getPluginManager().registerEvents(new HitListener(),this);
+        PlayerHandBook phb=new PlayerHandBook();
+        Objects.requireNonNull(Bukkit.getPluginCommand("playerhandbook")).setExecutor(phb);
+        Objects.requireNonNull(Bukkit.getPluginCommand("setplayerhandbook")).setExecutor(phb);
         Bukkit.getPluginManager().registerEvents(new PlayerDamageListener(),this);
-        Bukkit.getPluginManager().registerEvents(new EnhanceHandler(),this);
+        Bukkit.getPluginManager().registerEvents(new WizardStaffListener(),this);
         saveDefaultConfig();
         FC=getConfig();
         try{
-        debug_mode=(boolean)FC.get("Debug_Mode");
+        debug_mode= !Objects.isNull(FC.get("Debug_Mode")) && (boolean) FC.get("Debug_Mode");
         }
         catch (NullPointerException e){
             debug_mode=false;

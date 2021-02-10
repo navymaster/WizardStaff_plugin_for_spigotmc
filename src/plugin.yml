@@ -4,11 +4,6 @@ version: 1.16
 api-version: 1.13
 author: navy_master
 commands:
-  learnmagic:
-    description: learn a magic
-    aliases: lm
-    permission: learnmagic.use
-    usage: /<command> <playername> <magicname>
   playerhandbook:
     description: get the player's handbook
     aliases: phb
