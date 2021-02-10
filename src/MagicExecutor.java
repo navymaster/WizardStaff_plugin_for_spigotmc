@@ -9,12 +9,26 @@ import org.bukkit.util.Vector;
 import java.util.*;
 public class MagicExecutor {
     public static HashMap<String,MagicExecutor> MagicList=new HashMap<>();
+    public static int enhance_registered=0;
     private final int cold_time;
+
+    public boolean isEnhanceable() {
+        return enhance;
+    }
+
+    private final boolean enhance;
     public static void register_magic(String name,MagicExecutor m){
         MagicList.put(name,m);
     }
+    @Deprecated
     public MagicExecutor(int c){
         cold_time=c;
+        enhance=false;
+    }
+    public MagicExecutor(int c,boolean whenEnhance){
+        cold_time=c;
+        enhance=whenEnhance;
+        enhance_registered++;
     }
     public boolean runMagic(LivingEntity Caster){return true;}
     public void run(LivingEntity Caster){
@@ -42,7 +56,7 @@ public class MagicExecutor {
     }
     public static void register_default(){
         //火球
-        MagicExecutor FIRE_BALL=new MagicExecutor(20){
+        MagicExecutor FIRE_BALL=new MagicExecutor(20,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w=Caster.getWorld();
@@ -56,7 +70,7 @@ public class MagicExecutor {
         };
         register_magic("FIRE_BALL",FIRE_BALL);
         //火焰箭
-        MagicExecutor FLAME_ARROW=new MagicExecutor(0){
+        MagicExecutor FLAME_ARROW=new MagicExecutor(0,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
@@ -65,12 +79,13 @@ public class MagicExecutor {
                 Arrow ar = w.spawnArrow(loc, loc.getDirection(), (float) 0.6, 60);
                 ar.setFireTicks(1200);
                 ar.setShooter(Caster);
+                ar.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
                 return true;
             }
         };
         register_magic("FLAME_ARROW",FLAME_ARROW);
         //雷鸣波
-        MagicExecutor THUNDER_WAVE=new MagicExecutor(60){
+        MagicExecutor THUNDER_WAVE=new MagicExecutor(60,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 Location loc=Caster.getLocation();
@@ -91,7 +106,7 @@ public class MagicExecutor {
         };
         register_magic("THUNDER_WAVE",THUNDER_WAVE);
         //粉碎音波
-        MagicExecutor SHATTER=new MagicExecutor(100){
+        MagicExecutor SHATTER=new MagicExecutor(100,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w=Caster.getWorld();
@@ -115,7 +130,7 @@ public class MagicExecutor {
         };
         register_magic("SHATTER",SHATTER);
         //魔法飞弹
-        MagicExecutor MAGIC_MISSILE=new MagicExecutor(60){
+        MagicExecutor MAGIC_MISSILE=new MagicExecutor(60,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
@@ -174,7 +189,7 @@ public class MagicExecutor {
         };
         register_magic("MAGIC_MISSILE",MAGIC_MISSILE);
         //冰铠
-        MagicExecutor FROST_ARMOR=new MagicExecutor(1200){
+        MagicExecutor FROST_ARMOR=new MagicExecutor(1200,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 PlayerDamageListener.watchlist.add(Caster);
@@ -186,7 +201,7 @@ public class MagicExecutor {
         };
         register_magic("FROST_ARMOR",FROST_ARMOR);
         //召雷术
-        MagicExecutor THUNDER_CALLING=new MagicExecutor(100){
+        MagicExecutor THUNDER_CALLING=new MagicExecutor(100,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 try {
@@ -200,7 +215,7 @@ public class MagicExecutor {
         };
         register_magic("THUNDER_CALLING",THUNDER_CALLING);
         //怪物定身术
-        MagicExecutor HOLD_MONSTER=new MagicExecutor(120){
+        MagicExecutor HOLD_MONSTER=new MagicExecutor(120,true){
             @Override
             public boolean runMagic(LivingEntity Caster){
                 World w = Caster.getWorld();
