@@ -1,4 +1,5 @@
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,10 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class WizardStaffListener implements Listener {
     @EventHandler
@@ -36,6 +34,7 @@ public class WizardStaffListener implements Listener {
             }
         }
     }
+    List<String> playerList;
     @EventHandler
     public void handle_enter(PlayerJoinEvent e){
         if(!WizardStaffMain.player_magics.containsKey(e.getPlayer())) {
@@ -50,20 +49,26 @@ public class WizardStaffListener implements Listener {
                     e.getPlayer().getInventory().addItem(is);
                 }
             }
-            if(WizardStaffMain.FC.get(e.getPlayer().getDisplayName())!=null){
-                WizardStaffMain.player_magics.put(e.getPlayer(),(PlayerMagicList) WizardStaffMain.FC.get(e.getPlayer().getDisplayName()));
-            }else {
-                PlayerMagicList PML=new PlayerMagicList();
-                PML.setPlayer_name(e.getPlayer().getDisplayName());
-                WizardStaffMain.player_magics.put(e.getPlayer(),PML);
-                WizardStaffMain.FC.set(e.getPlayer().getDisplayName(),PML);
+            if(Objects.isNull(playerList)){
+                if(Objects.isNull(WizardStaffMain.FC.get("PlayerList"))){
+                    WizardStaffMain.FC.set("PlayerList",new ArrayList<>());
+                }
+                playerList=(List<String>) WizardStaffMain.FC.getList("PlayerList");
             }
+            PlayerMagicList PML=new PlayerMagicList();
+            PML.setPlayer_name(e.getPlayer().getDisplayName());
+            WizardStaffMain.player_magics.put(e.getPlayer(),PML);
+            if(!playerList.contains(e.getPlayer().getDisplayName())){
+                playerList.add(e.getPlayer().getDisplayName());
+                e.getPlayer().sendMessage(ChatColor.YELLOW +"欢迎来到守夜人服务器，你还没有在本次更新后登陆本服务器，这意味着玩家手册已经更新，建议你使用/phb获取新的玩家手册");
+            }
+            WizardStaffMain.FC.set("PlayerList",playerList);
         }
-    }
+    }/*
     @EventHandler
     public void handle_leave(PlayerQuitEvent e){
         WizardStaffMain.player_magics.get(e.getPlayer()).cool_time=0;
-    }
+    }*/
     @EventHandler
     public void handle_magic_missile(ProjectileHitEvent e)
     {

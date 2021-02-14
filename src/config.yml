@@ -1,5 +1,17 @@
 #debug模式，这将会将一些随机事件改为必定发生，这样做是为了方便开发者能固定刷出自己写的内容以检查bug，因此，请永远不要在云端开启此项
 Debug_Mode: false
+#默认法术可以在这里设为false使其不能使用,ALL是全局禁用，为true时，使用后续设置
+MagicALL: true
+Magic:
+  FIRE_BALL: true
+  FLAME_ARROW: true
+  THUNDER_WAVE: true
+  SHATTER: true
+  MAGIC_MISSILE: true
+  FROST_ARMOR: true
+  THUNDER_CALLING: true
+  HOLD_MONSTER: true
+  TELEPORT: true
 #这是默认的玩家手册数据，如果你需要更改它，你可以直接通过setphb指令来做，或者，你非要在这里改，那就祝你好运。
 phbdata:
   ==: org.bukkit.inventory.ItemStack
@@ -21,3 +33,6 @@ phbdata:
       - '{"text":"THUNDER_CALLING\n召雷术\n对你看向的位置召唤闪电,冷却5s"}'
       - '{"text":"HOLD_MONSTER\n怪物定身术\n定住你看向的非玩家生物3s，需要瞄准目标头部（或者高一点）,冷却6s"}'
     resolved: true
+#玩家名单，对于首次进入游戏的玩家，向其发送使用/phb的提示,手动添加请写
+#- 玩家名
+PlayerList:

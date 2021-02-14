@@ -17,8 +17,7 @@ public class WizardStaffMain extends JavaPlugin {
     @Override
     public void onEnable() {
         only=this;
-        MagicExecutor.register_default();
-        ConfigurationSerialization.registerClass(PlayerMagicList.class);
+        //ConfigurationSerialization.registerClass(PlayerMagicList.class);
         PlayerHandBook phb=new PlayerHandBook();
         Objects.requireNonNull(Bukkit.getPluginCommand("playerhandbook")).setExecutor(phb);
         Objects.requireNonNull(Bukkit.getPluginCommand("setplayerhandbook")).setExecutor(phb);
@@ -26,13 +25,18 @@ public class WizardStaffMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WizardStaffListener(),this);
         saveDefaultConfig();
         FC=getConfig();
-        try{
-        debug_mode= !Objects.isNull(FC.get("Debug_Mode")) && (boolean) FC.get("Debug_Mode");
+        if(Objects.isNull(FC.get("Debug_Mode"))){
+            FC.set("Debug_Mode",false);
         }
-        catch (NullPointerException e){
-            debug_mode=false;
-        }
+        debug_mode=(boolean)FC.get("Debug_Mode");
+
         PlayerHandBook.setPhb((ItemStack) FC.get("phbdata"));
+
+        if(Objects.isNull(FC.get("MagicALL"))){
+            FC.set("MagicALL",true);
+        }
+        if((boolean)FC.get("MagicALL"))
+        MagicExecutor.register_default();
     }
     @Override
     public void onDisable() {
