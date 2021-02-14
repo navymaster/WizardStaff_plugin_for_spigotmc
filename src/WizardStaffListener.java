@@ -11,14 +11,26 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.*;
 
+/**
+ * 插件的主监听器
+ * 监听绝大多数事件
+ * @author navy_master
+ * @version 1.0.0
+ * @see org.bukkit.event.Listener
+ */
 public class WizardStaffListener implements Listener {
+    /**
+     * 玩家鼠标右键事件监听
+     * 这个函数会检查玩家手中的物品，并检查是否带有施法关键词
+     * 如果成功，则会调用对应的执行器
+     * @param e 捕获到的玩家右键事件
+     */
     @EventHandler
     public void handle_right_click(PlayerInteractEvent e){
         if(e.hasItem()) {
@@ -35,6 +47,12 @@ public class WizardStaffListener implements Listener {
         }
     }
     List<String> playerList;
+
+    /**
+     * 检查玩家进入服务器的事件
+     * 检查玩家是否是本版本首次进入服务器，如果是，发送phb更新提醒消息
+     * @param e 捕获的玩家进入服务器事件
+     */
     @EventHandler
     public void handle_enter(PlayerJoinEvent e){
         if(!WizardStaffMain.player_magics.containsKey(e.getPlayer())) {
@@ -55,7 +73,7 @@ public class WizardStaffListener implements Listener {
                 }
                 playerList=(List<String>) WizardStaffMain.FC.getList("PlayerList");
             }
-            PlayerMagicList PML=new PlayerMagicList();
+            PlayerMagic PML=new PlayerMagic();
             PML.setPlayer_name(e.getPlayer().getDisplayName());
             WizardStaffMain.player_magics.put(e.getPlayer(),PML);
             if(!playerList.contains(e.getPlayer().getDisplayName())){
@@ -64,11 +82,12 @@ public class WizardStaffListener implements Listener {
             }
             WizardStaffMain.FC.set("PlayerList",playerList);
         }
-    }/*
-    @EventHandler
-    public void handle_leave(PlayerQuitEvent e){
-        WizardStaffMain.player_magics.get(e.getPlayer()).cool_time=0;
-    }*/
+    }
+
+    /**
+     * 更改魔法飞弹造成的伤害，使此类雪球可以造成2伤害
+     * @param e 捕获的弹射物击打生物事件
+     */
     @EventHandler
     public void handle_magic_missile(ProjectileHitEvent e)
     {
@@ -80,6 +99,12 @@ public class WizardStaffListener implements Listener {
         }
     }
     Random r=new Random();
+
+    /**
+     * 附魔时随机法术生成
+     * 概率默认为25%
+     * @param e 捕获的附魔事件
+     */
     @EventHandler
     public void handle_enhance(EnchantItemEvent e) {
         int a = r.nextInt(100);
@@ -112,6 +137,12 @@ public class WizardStaffListener implements Listener {
         }
     }
     public static List<LivingEntity> tp_choice;
+
+    /**
+     * 检测到正在开启的gui是传送法术的gui时<br>
+     * 进行的针对性处理
+     * @param e 捕获点击gui事件
+     */
     @EventHandler
     public void handle_inventory(InventoryClickEvent e){
         if(e.getWhoClicked().getOpenInventory().getTitle().equals("teleport_target")){

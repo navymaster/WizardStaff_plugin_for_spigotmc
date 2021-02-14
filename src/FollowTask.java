@@ -4,6 +4,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Objects;
 
+/**
+ * 一个同步进程，作用是让一个实体跟随另一个
+ * @author navy_master
+ * @version 1.0.0
+ * @see org.bukkit.scheduler.BukkitRunnable
+ */
 public class FollowTask extends BukkitRunnable {
 
     public FollowTask(LivingEntity tar,Projectile bullet){

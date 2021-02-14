@@ -1,6 +1,6 @@
 main: WizardStaffMain
 name: wizard_staff
-version: 1.16
+version: 1.0.0
 api-version: 1.13
 author: navy_master
 commands:

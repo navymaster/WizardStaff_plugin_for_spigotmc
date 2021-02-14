@@ -23,7 +23,7 @@ phbdata:
     title: 本插件的简单介绍
     author: 旅行者navy_master
     pages:
-      - '{"extra":[{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"2"},"text":"MAGIC_MISSILE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"3"},"text":"FIRE_BALL\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"4"},"text":"THUNDER_WAVE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"5"},"text":"SHATTER\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"6"},"text":"FLAME_ARROW\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"7"},"text":"FROST_ARMOR\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"8"},"text":"THUNDER_CALLING\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"9"},"text":"HOLD_MONSTER\n"}],"text":"附魔时，有10%概率获得一项主动技能\n拿起物品，右键即可释放，以下为主动技能词条：\n"}'
+      - '{"extra":[{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"2"},"text":"MAGIC_MISSILE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"3"},"text":"FIRE_BALL\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"4"},"text":"THUNDER_WAVE\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"5"},"text":"SHATTER\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"6"},"text":"FLAME_ARROW\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"7"},"text":"FROST_ARMOR\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"8"},"text":"THUNDER_CALLING\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"9"},"text":"HOLD_MONSTER\n"},{"underlined":true,"color":"blue","clickEvent":{"action":"change_page","value":"10"},"text":"TELEPORT\n"}],"text":"附魔时，有10%概率获得一项主动技能\n拿起物品，右键即可释放，以下为主动技能词条：\n"}'
       - '{"text":"MAGIC_MISSILE\n魔法飞弹\n瞄准目标头部（或者高一点）即可发射三枚跟踪飞弹,冷却3s"}'
       - '{"text":"FIRE_BALL\n火球术\n召唤恶魂火球,冷却1s"}'
       - '{"text":"THUNDER_WAVE\n雷鸣波\n对周围所有其他生物造成伤害，冷却3s"}'
@@ -32,6 +32,7 @@ phbdata:
       - '{"text":"FROST_ARMOR\n凝霜之铠\n获取临时生命，在临时生命消耗完之前，被攻击造成反甲，冷却一分钟"}'
       - '{"text":"THUNDER_CALLING\n召雷术\n对你看向的位置召唤闪电,冷却5s"}'
       - '{"text":"HOLD_MONSTER\n怪物定身术\n定住你看向的非玩家生物3s，需要瞄准目标头部（或者高一点）,冷却6s"}'
+      - '{"text":"TELEPORT\n传送术\n传送至目标生物的位置"}'
     resolved: true
 #玩家名单，对于首次进入游戏的玩家，向其发送使用/phb的提示,手动添加请写
 #- 玩家名

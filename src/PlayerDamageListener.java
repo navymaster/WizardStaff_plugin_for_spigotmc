@@ -5,7 +5,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * 玩家受伤监听器
+ * 处理凝霜之铠事件
+ * @author navy_master
+ * @version 1.0.0
+ * @see org.bukkit.event.Listener
+ */
 public class PlayerDamageListener implements Listener {
     public static Set<LivingEntity> watchlist=new HashSet<>();
     @EventHandler

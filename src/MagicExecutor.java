@@ -9,6 +9,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.*;
+
+/**
+ * 法术执行器类
+ * 用于方便地注册新的法术
+ * @author navy_master
+ * @version 1.0.0
+ */
 public class MagicExecutor {
     public static HashMap<String,MagicExecutor> MagicList=new HashMap<>();
     public static int enhance_registered=0;
@@ -19,23 +26,51 @@ public class MagicExecutor {
     }
 
     private final boolean enhance;
+
+    /**
+     * 注册一个新的法术
+     * @param name 法术的名称
+     * @param m 法术的执行器
+     */
     public static void register_magic(String name,MagicExecutor m){
         MagicList.put(name,m);
     }
+
+    /**
+     * 法术执行器的构造函数
+     * @param c 冷却时间
+     */
     @Deprecated
     public MagicExecutor(int c){
         cold_time=c;
         enhance=false;
     }
+
+    /**
+     * 法术执行器的构造函数
+     * @param c 冷却时间
+     * @param whenEnhance 是否在附魔时考虑（如果希望仅在自行设置的情况下获得法术词缀，则false）
+     */
     public MagicExecutor(int c,boolean whenEnhance){
         cold_time=c;
         enhance=whenEnhance;
         if(whenEnhance)enhance_registered++;
     }
+
+    /**
+     * 法术执行函数，如果新建法术，必须重载此函数
+     * @param Caster 施法者
+     * @return 施法成功与否
+     */
     public boolean runMagic(LivingEntity Caster){return true;}
+
+    /**
+     * 包装过的施法执行函数，判断完冷却时间后，会执行runMagic函数
+     * @param Caster 施法者
+     */
     public void run(LivingEntity Caster){
         if(Player.class.isAssignableFrom(Caster.getClass())) {
-            PlayerMagicList PML = WizardStaffMain.player_magics.get((Player) Caster);
+            PlayerMagic PML = WizardStaffMain.player_magics.get((Player) Caster);
             if (PML.cool_time == 0) {
                 boolean suc = runMagic(Caster);
                 if (suc) {
@@ -56,6 +91,10 @@ public class MagicExecutor {
             runMagic(Caster);
         }
     }
+
+    /**
+     * 注册默认法术的函数
+     */
     public static void register_default(){
         boolean install;
         Map<String,Boolean> defualt_magic;

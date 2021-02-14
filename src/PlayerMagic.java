@@ -1,8 +1,13 @@
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import java.util.*;
-
-public class PlayerMagicList implements ConfigurationSerializable
+/**
+ * 玩家法术参数类<br>
+ * 目前仅保存冷却时间，其他等待后续开发
+ * @author navy_master
+ * @version 1.0.0
+ */
+public class PlayerMagic //implements ConfigurationSerializable
 {
     int cool_time =0;
     private String player_name;
@@ -10,7 +15,7 @@ public class PlayerMagicList implements ConfigurationSerializable
         this.player_name = player_name;
     }
 
-    @Override
+    /*@Override
     public Map<String, Object>  serialize() {
         Map<String, Object> map = new HashMap<>();
         map.put("name",player_name);
@@ -18,10 +23,10 @@ public class PlayerMagicList implements ConfigurationSerializable
         return map;
     }
 
-    public static PlayerMagicList deserialize(Map<String, Object> map) {
-        PlayerMagicList PML=new PlayerMagicList();
+    public static PlayerMagic deserialize(Map<String, Object> map) {
+        PlayerMagic PML=new PlayerMagic();
         PML.player_name=(String)map.get("name");
         PML.cool_time =(int)map.get("cooltime");
         return PML;
-    }
+    }*/
 }
