@@ -16,6 +16,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 插件的主监听器
@@ -34,16 +36,36 @@ public class WizardStaffListener implements Listener {
     @EventHandler
     public void handle_right_click(PlayerInteractEvent e){
         if(e.hasItem()) {
-            try {
-                List<String> Lore = e.getItem().getItemMeta().getLore();
-                for(String s: MagicExecutor.MagicList.keySet()){
-                    if (Lore.contains(s)) {
-                        MagicExecutor.MagicList.get(s).run(e.getPlayer());
+            ItemStack is=e.getItem();
+            if(Objects.isNull(is)){
+                return;
+            }
+            ItemMeta im;
+            List<String> Lore;
+            im=is.getItemMeta();
+            Lore = im != null ? im.getLore() : new ArrayList<>();
+            String reg="(^[^0-9<]+)(<(\\d+)/(\\d+)>)?";
+            Pattern p=Pattern.compile(reg);
+            for(int i=0;i<Lore.size();i++) {
+                String s = Lore.get(i);
+                Matcher m = p.matcher(s);
+                if (m.find()) {
+                    if (MagicExecutor.MagicList.containsKey(m.group(1))) {
+                        if (m.group(2) == null) {
+                            MagicExecutor.MagicList.get(m.group(1)).run(e.getPlayer());
+                        } else {
+                            if (!m.group(3).equals("0")) {
+                                MagicExecutor.MagicList.get(m.group(1)).runMagic(e.getPlayer());
+                                s = m.group(1) + "<" + (Integer.valueOf(m.group(3)) - 1) + "/" + m.group(4) + ">";
+                                Lore.set(i, s);
+                                im.setLore(Lore);
+                                e.getItem().setItemMeta(im);
+                            }
+                        }
                     }
                 }
-            }catch(NullPointerException n){
-
             }
+            
         }
     }
     List<String> playerList;
@@ -66,6 +88,13 @@ public class WizardStaffListener implements Listener {
                     is.setItemMeta(im);
                     e.getPlayer().getInventory().addItem(is);
                 }
+                ItemStack is=new ItemStack(Material.STICK);
+                ItemMeta im=is.getItemMeta();
+                List<String> l=new ArrayList<>();
+                l.add("FIRE_BALL<4/4>");
+                im.setLore(l);
+                is.setItemMeta(im);
+                e.getPlayer().getInventory().addItem(is);
             }
             if(Objects.isNull(playerList)){
                 if(Objects.isNull(WizardStaffMain.FC.get("PlayerList"))){
