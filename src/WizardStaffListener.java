@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  * 插件的主监听器
  * 监听绝大多数事件
  * @author navy_master
- * @version 1.1.0
+ * @version 1.1.1
  * @see org.bukkit.event.Listener
  */
 public class WizardStaffListener implements Listener {
@@ -43,7 +43,9 @@ public class WizardStaffListener implements Listener {
             ItemMeta im;
             List<String> Lore;
             im=is.getItemMeta();
-            Lore = im != null ? im.getLore() : new ArrayList<>();
+            if (im != null&&im.hasLore()) {
+                Lore =im.getLore();
+            }else Lore=new ArrayList<>();
             String reg="(^[^0-9<]+)(<(\\d+)/(\\d+)>)?";
             Pattern p=Pattern.compile(reg);
             for(int i=0;i<Lore.size();i++) {
@@ -55,7 +57,8 @@ public class WizardStaffListener implements Listener {
                             MagicExecutor.MagicList.get(m.group(1)).run(e.getPlayer());
                         } else {
                             if (!m.group(3).equals("0")) {
-                                MagicExecutor.MagicList.get(m.group(1)).runMagic(e.getPlayer());
+                                boolean suc=MagicExecutor.MagicList.get(m.group(1)).runMagic(e.getPlayer());
+                                if(!suc)continue;
                                 s = m.group(1) + "<" + (Integer.valueOf(m.group(3)) - 1) + "/" + m.group(4) + ">";
                                 Lore.set(i, s);
                                 im.setLore(Lore);

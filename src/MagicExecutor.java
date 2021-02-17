@@ -297,6 +297,7 @@ public class MagicExecutor {
             MagicExecutor FROST_ARMOR = new MagicExecutor(1200, true) {
                 @Override
                 public boolean runMagic(LivingEntity Caster) {
+                    if(Caster.getAbsorptionAmount()==0)return false;
                     PlayerDamageListener.watchlist.add(Caster);
                     Caster.setAbsorptionAmount(Caster.getAbsorptionAmount() + 4);
                     FrostArmorTask FAT = new FrostArmorTask(Caster);
