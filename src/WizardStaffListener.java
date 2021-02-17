@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  * 插件的主监听器
  * 监听绝大多数事件
  * @author navy_master
- * @version 1.0.0
+ * @version 1.1.0
  * @see org.bukkit.event.Listener
  */
 public class WizardStaffListener implements Listener {
