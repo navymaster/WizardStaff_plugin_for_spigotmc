@@ -140,7 +140,7 @@ public class WizardStaffListener implements Listener {
     @EventHandler
     public void handle_enhance(EnchantItemEvent e) {
         int a = r.nextInt(100);
-        if(a<25||WizardStaffMain.debug_mode) {
+        if(a<10||WizardStaffMain.debug_mode) {
             ItemStack is = e.getItem();
             List<String> Lore;
             try{

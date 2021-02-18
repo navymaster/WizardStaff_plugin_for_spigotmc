@@ -71,15 +71,15 @@ public class MagicExecutor {
     public void run(LivingEntity Caster){
         if(Player.class.isAssignableFrom(Caster.getClass())) {
             PlayerMagic PML = WizardStaffMain.player_magics.get((Player) Caster);
-            if (PML.cool_time == 0) {
+            if (PML.getCool_time()== 0) {
                 boolean suc = runMagic(Caster);
                 if (suc) {
-                    PML.cool_time = cold_time;
+                    PML.setCool_time(cold_time) ;
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            if (PML.cool_time > 0) {
-                                PML.cool_time--;
+                            if (PML.getCool_time()> 0) {
+                                PML.setCool_time(PML.getCool_time()-1);
                             } else {
                                 this.cancel();
                             }

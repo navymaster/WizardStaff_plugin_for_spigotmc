@@ -9,7 +9,15 @@ import java.util.*;
  */
 public class PlayerMagic //implements ConfigurationSerializable
 {
-    int cool_time =0;
+    public int getCool_time() {
+        return cool_time;
+    }
+
+    public void setCool_time(int cool_time) {
+        this.cool_time = cool_time;
+    }
+
+    private int cool_time =0;
     private String player_name;
     public void setPlayer_name(String player_name) {
         this.player_name = player_name;
