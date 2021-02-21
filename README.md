@@ -1,7 +1,7 @@
 # WizardStaff
-一个基于spigot的minecraft服务端插件  
-#现在在navymaster/MyPlugins处更新
-#分离了框架和功能实现以便于扩展
+一个基于spigot的minecraft服务端插件   
+# 现在在navymaster/MyPlugins处更新   
+# 分离了框架和功能实现以便于扩展  
 功能是当玩家附魔时，有25%的概率该物品获得一个主动技能（法术），右键可以使用之。  
 每个玩家只有一个冷却时间，为0时可以使用法术  
 
